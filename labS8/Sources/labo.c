@@ -42,49 +42,59 @@ void tree_add_node(TreeNode* root, TreeNode* node)
 
 int dfs(TreeNode* root, void* key)
 {
-	// 0 cree stack -> ajouter root a stack
-	/*1 verifier si ma stack est vide, sinon on pop l'element du top
-
-	2 Dans un algorithme de recherche on aurait une comparaison, comme exemple, si le character est F on
-	a trouver le noeud puis on retournerais le noeud
-
-	3 apres la comparaison, on considere ce noeud comme le noeud courant et on push le right puis le left,
-	on push le left en dernier puisque l'on veut
-	aller en profondeur avant d'aller latteralement. On recommence*/
-	long long count = 0;
-	Stack s = stack_init(MAX);
-	Stack* stack = &s;
-	stack_push(stack, root);
-	while (stack != NULL)
-	{
-		TreeNode* node = stack_pop(stack);
-		if (node->data == key)
-		{
-			return count;
-		}
-		count++;
-		stack_push(stack, node->right);
-		stack_push(stack, node->left);
-	}
-
+    //dans l'exemple donnee il en a 6(l'image de l'arbre en classe A,B,C,D,E,F), faque je prend ce numero car aucun n'a ete donner
+    Stack stack = stack_init(6);
+    stack_push(&stack, root);
+    int count = 0;
+    while (stack.top > -1)
+    {
+        TreeNode* info = stack_pop(&stack);
+        count++;
+        if (info->data == key)
+        {
+            return count;
+        }
+        else
+        {
+            if (info->right != NULL)
+            {
+                stack_push(&stack, info->right);
+            }
+            if (info->left != NULL)
+            {
+                stack_push(&stack, info->left);
+            }
+        }
+    }
 }
 
 int bfs(TreeNode* root, void* key)
 {
-	/*1 verifier si ma queue est vide sinon on pop l'element de fin
+    Queue* q = allocate(sizeof(Queue));
+    queue_init(q);
+    queue_push(q, root);
+    int count = 0;
+    while (q != NULL)
+    {
+        TreeNode* info = queue_pop(q);
+        if (info->data == key)
+        {
+            count++;
+            return count;
+        }
+        else
+        {
+            count++;
+            if (info->left != NULL)
+            {
+                queue_push(q, info->left);
+            }
+            if (info->right != NULL)
+            {
+                queue_push(q, info->right);
+            }
 
-	2 dans un algorithme de recheche on aurait une comparaison, comme exemple, si le character est F on a trouver le noeud
-	puis on retournerais le noeud
-
-	3 apres la comparaison, on cnsidere ce noeud comme le noeud courant et on push le left puis le right.On recommence.*/
-
-	/*q->push(a)
-		while (q->prev != NULL)
-		{
-			TreeNode* n = pop(a)
-				if (n->data == "F") return n;
-			push(q, n->left);
-			push(q, n->right);
-		}*/
-
+        }
+    }
 }
+
