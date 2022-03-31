@@ -1,43 +1,44 @@
 #include "labo.h"
+#include "labo.h"
 #define MAX 100
 
 static long long tab[MAX] = { 0 };
 
 long long fibonacci(int n)
 {
-	if (n == 0) return 0; //condition de fin
-	if (n == 1) return 1;
-	if (tab[n] != 0) // Regarde si le calcul de fibonacci(n) a deja ete fait
-	{
-		return tab[n]; // S'il est fait retourne le calcule
-	}
-	tab[n] = fibonacci(n-1) + fibonacci(n-2);
-	return tab[n];
+    if (n == 0) return 0; //condition de fin
+    if (n == 1) return 1;
+    if (tab[n] != 0) // Regarde si le calcul de fibonacci(n) a deja ete fait
+    {
+        return tab[n]; // S'il est fait retourne le calcule
+    }
+    tab[n] = fibonacci(n - 1) + fibonacci(n - 2);
+    return tab[n];
 }
 
 TreeNode* tree_create_node(void* data)
 {
-	TreeNode* treeNode = allocate(sizeof(TreeNode));
-	treeNode->data = data;
-	treeNode->right = NULL;
-	treeNode->left = NULL;
-	return treeNode;
+    TreeNode* treeNode = allocate(sizeof(TreeNode));
+    treeNode->data = data;
+    treeNode->right = NULL;
+    treeNode->left = NULL;
+    return treeNode;
 }
 
 void tree_add_node(TreeNode* root, TreeNode* node)
 {
-	if (root->left == NULL)
-	{
-		root->left = node;
-	}
-	else if (root->right == NULL && root->left != NULL)
-	{
-		root->right = node;
-	}
-	else 
-	{
+    if (root->left == NULL)
+    {
+        root->left = node;
+    }
+    else if (root->right == NULL && root->left != NULL)
+    {
+        root->right = node;
+    }
+    else
+    {
 
-	}
+    }
 }
 
 int dfs(TreeNode* root, void* key)
@@ -97,4 +98,3 @@ int bfs(TreeNode* root, void* key)
         }
     }
 }
-
