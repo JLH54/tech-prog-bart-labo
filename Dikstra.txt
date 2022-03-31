@@ -1,0 +1,4 @@
+Etape Dijkstra
+1. Calculer le cout des noeuds adjacents
+2. Choisir le noeud qui coute le moins
+3. Se rappeler du chemin parcouru
