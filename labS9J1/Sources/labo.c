@@ -58,27 +58,47 @@ int dfs(Node* root[], int len, Node* curr, void* key, Stack* s)
 
 int bfs(Node* root[], void* key, Stack* s)
 {
-	////1. push premier dans la queue
-	////2.
-	//Node* n = root[0];
-	//while (n != null)
-	//{
-	//	n = queue_pop(q)
-	//		for (adjacente)
-	//		{
-	//			queue_push(adjacente)
-	//		}
-	//	n->visited = 1;
-	//	if (n->data == key) break;
+	 while (s->top != -1)
+    {
+        stack_pop(s);
+    }
+    int nbChemin = 0;
+    Queue* q = allocate(sizeof(Queue));
+    queue_init(q);
+    queue_push(q, root[0]);
+    Node* n = root[0];
+    while (n != NULL)
+    {
+        n = queue_pop(q);
+        n->visited = 1;
+        if (n->data == key)
+        {
+            break;
+        }
+        for (int i = 0; i < n->len; i++)
+        {
+            if (n->adj[i]->visited != 1)
+            {
+                queue_push(q, n->adj[i]);
+                n->adj[i]->revPath->data = n;
+            }
+        }
+    }
+    if (n == NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        while (n != NULL)
+        {
+            stack_push(s, n);
+            n = n->revPath->data;
+            nbChemin++;
+        }
+    }
+    return nbChemin;
 
-	//}
-	//if (n == NULL)
-	//{
-	//	bad;
-	//}
-	//else {
-	//	good;
-	//}
 	return 0;
 }
 
